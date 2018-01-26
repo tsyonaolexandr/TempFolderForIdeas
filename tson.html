@@ -1,0 +1,495 @@
+﻿<!doctype html>
+<html lang="ru">
+
+<head>
+	<link href="style.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tsona</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+        /* Базовые стили демо-страницы */
+        
+        *,
+        *:before,
+        *:after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            font: 14px/1 "Open Sans", sans-serif;
+            color: #555;
+            background: #fafafa;
+        }
+        /* фиксированное верхнее меню*/
+        
+        .top-nav {
+            background: #555555;
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
+            left: 0;
+            opacity: 0.95;
+            padding: 8px;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 9999;
+        }
+        
+        .topnav-wrapper {
+            margin: 0 auto;
+            max-width: 980px;
+        }
+        
+        .top-logo {
+            color: #ddd;
+            font: bold 16px/20px "Crete Round", serif;
+            padding-left: 10px;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+        }
+        
+        .top-logo a {
+            color: #B8B8B8;
+            text-decoration: none;
+        }
+        
+        .top-logo a:hover {
+            color: #ddd;
+        }
+        
+        .topnav-right {
+            float: right;
+        }
+        
+        .right-menu {
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .right-menu li {
+            float: left;
+            list-style-type: none;
+            margin: 0;
+        }
+        
+        .right-menu li a {
+            color: #B8B8B8;
+            display: block;
+            padding: 0.05em 0.75em;
+            text-decoration: none;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .right-menu li a:hover {
+            color: #fff;
+            text-shadow: none;
+        }
+        
+        .right-menu li span {
+            font-size: 16px;
+            line-height: 1.2;
+        }
+        
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 10px 10px 10px;
+        }
+        
+        h1 {
+            padding: 50px 0;
+            font-weight: 400;
+            text-align: center;
+        }
+        
+        .info {
+            color: rgba(78, 78, 78, 0.8);
+            width: 100%;
+            margin: 40px auto;
+            text-align: center;
+            font-weight: 300;
+        }
+        
+        .info a {
+            color: #bbb;
+            text-decoration: none;
+        }
+        
+        .info a:hover {
+            color: #888;
+        }
+        /* Конец стилей демо-страницы */
+        /* Базовый контейнер табов */
+        
+        .tabs {
+            min-width: 320px;
+            max-width: 800px;
+            padding: 0px;
+            margin: 0 auto;
+        }
+        /* Стили секций с содержанием */
+        
+        .tabs > section {
+            display: none;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+        
+        .tabs > section > p {
+            margin: 0 0 5px;
+            line-height: 1.5;
+            color: #383838;
+            /* прикрутим анимацию */
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+        }
+        /* Описываем анимацию свойства opacity */
+        
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Прячем чекбоксы */
+        
+        .tabs > input {
+            display: none;
+            position: absolute;
+        }
+        /* Стили переключателей вкладок (табов) */
+        
+        .tabs > label {
+            display: inline-block;
+            margin: 0 0 -1px;
+            padding: 15px 25px;
+            font-weight: 600;
+            text-align: center;
+            color: #000;
+            border: 0px solid #ddd;
+            border-width: 1px 1px 1px 1px;
+            background: #f1f1f1;
+            border-radius: 3px 3px 0 0;
+        }
+        /* Шрифт-иконки от Font Awesome в формате Unicode */
+        
+        .tabs > label:before {
+            font-family: fontawesome;
+            font-weight: normal;
+            margin-right: 10px;
+        }
+        
+        .tabs > label[for*="1"]:before {
+            content: "\f02f";
+        }
+        
+        .tabs > label[for*="2"]:before {
+            content: "\f16b";
+        }
+        
+        .tabs > label[for*="3"]:before {
+            content: "\f13b";
+        }
+        
+        .tabs > label[for*="4"]:before {
+            content: "\f13c";
+        }
+        /* Изменения стиля переключателей вкладок при наведении */
+        
+        .tabs > label:hover {
+            color: #888;
+            cursor: pointer;
+        }
+        /* Стили для активной вкладки */
+        
+        .tabs > input:checked + label {
+            color: #000;
+            border-top: 1px solid #009933;
+            border-bottom: 1px solid #fff;
+            background: #fff;
+        }
+        /* Активация секций с помощью псевдокласса :checked */
+        
+        #tab1:checked ~ #content-tab1,
+        #tab2:checked ~ #content-tab2,
+        #tab3:checked ~ #content-tab3,
+        #tab4:checked ~ #content-tab4 {
+            display: block;
+        }
+        /* Убираем текст с переключателей 
+* и оставляем иконки на малых экранах
+*/
+        
+        @media screen and (max-width: 680px) {
+            .tabs > label {
+                font-size: 0;
+            }
+            .tabs > label:before {
+                margin: 0;
+                font-size: 18px;
+            }
+        }
+        /* Изменяем внутренние отступы 
+*  переключателей для малых экранов
+*/
+        
+        @media screen and (max-width: 400px) {
+            .tabs > label {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+	<div class="top-nav">
+        <div class="topnav-wrapper">
+            <div class="topnav-right">
+                <ul class="right-menu">
+                    <li><a href="http://dbmast.ru/about" title="Вернуться к изучению деталей ">&laquo; &laquo; Изучить Детали</a></li>
+                </ul>
+            </div>
+            <div class="top-logo"> <a href="http://dbmast.ru/">{ -- dbmast.ru -- }</a> </div>
+        </div>
+        <div class="clear"></div>
+    </div>!
+	-->
+    <div class="container">
+        <h1>
+        Service Desk 1L
+    </h1>
+        <div class="tabs">
+            <input id="tab1" type="radio" name="tabs" checked>
+            <label for="tab1" title="Printers">Принтеры</label>
+            <input id="tab2" type="radio" name="tabs">
+            <label for="tab2" title="Technics">Техника</label>
+            <input id="tab3" type="radio" name="tabs">
+            <label for="tab3" title="HTML5">Link</label>
+            <input id="tab4" type="radio" name="tabs">
+            <label for="tab4" title="CSS3">CSS3</label>
+            <section id="content-tab1">
+                <p>Корпус:КФ 2 <br>Этаж: 2</p>
+                <p>
+				Модель: HP LaserJet M1536dnf MFP <br>
+				Тип картриджа: <font color="#AB1212">78A </font>
+				</p>
+				<p>Hardware Address: <font color="#1F139F">a0:d3:c1:83:b0:ce </font><br>
+				Host Name: <font color="#1F139F">NPI83B0CE </font><br>
+				IPv4 Address: <font color="#1F139F">192.168.3.187 </font><br>
+				IPv6 Address: <font color="#1F139F">FE80:A2D3:C1FF:FE83:B0CE</font>
+				</p>
+				<hr>
+				<p>Корпус: КФ 1 <br>Этаж: 2 (перед кабинетом Хмельницкого)</p>
+                <p>
+				Модель: HP LaserJet M1536dnf MFP <br>
+				Тип картриджа: <font color="#AB1212">78A </font>
+				</p>
+				<p>Hardware Address: <font color="#1F139F">ac:16:2d:3d:2f:b0 </font><br>
+				Host Name: <font color="#1F139F">NPI3D2FB0 </font><br>
+				IPv4 Address: <font color="#1F139F">192.168.3.127 </font><br>
+				IPv6 Address: <font color="#1F139F">FE80:AE16:2DFF:FE3D:2FB0</font>
+				</p>
+				<hr>
+				<p>Корпус: КФ 1 <br>Этаж: 3 (ресепшн)</p>
+                <p>
+				Модель: HP LaserJet M1536dnf MFP <br>
+				Тип картриджа: <font color="#AB1212">78A </font>
+				</p>
+				<p>Hardware Address: <font color="#1F139F">6c:3b:e5:09:68:04 </font><br>
+				Host Name: <font color="#1F139F">NPI096804 </font><br>
+				IPv4 Address: <font color="#1F139F">192.168.3.141 </font><br>
+				IPv6 Address: <font color="#1F139F">FE80:6E3B:E5FF:FE09:6804</font>
+				</p>
+            </section>
+            <section id="content-tab2">
+			<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////!-->
+    <div class="container">
+    <div class="accordion">
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block">Д</h2>
+            <div class="msg">
+    <div class="container">
+    <div class="accordion">
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block"><span>Донцова [067 562 33 75]  [27.02.2017]</span></h2>
+            <div class="msg">
+                <p>
+				Ноутбук: <font color="#1F139F">ASUS 502C</font> s/n: <font color="#AB1212">O1312-23</font><br>
+				Манипулятор: <font color="#1F139F">Genius GM-150032</font> s/n: <font color="#AB1212">n/a</font><br>
+				Сумка для ноутбука: <font color="#1F139F">LOBSTER</font> s/n: <font color="#AB1212">n/a</font><br>
+				Сим-карта "Киевстар": <font color="#1F139F">есть</font> s/n: <font color="#AB1212">n/a</font>
+				</p>
+		    </div>
+          </li>     
+        </ul>
+        </div>
+      
+    </div>
+            </div>
+          </li>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block">Н</h2>
+            <div class="msg">
+    <div class="container">
+    <div class="accordion">
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block"><span>Новак [067 521 79 81]  [02.03.2017]</span></h2>
+            <div class="msg">
+                <p>
+				Ноутбук: <font color="#1F139F">ASUS K401J</font> s/n: <font color="#AB1212">N2010-13-04И</font><br>
+				Моб. телефон: <font color="#1F139F">НЕ ПРЕДОСТАВИЛИ	--!!!!</font> s/n: <font color="#AB1212">n/a</font><br>
+				Модем 3G-USB: <font color="#1F139F">3G-USB-E153Eu-1</font> s/n: <font color="#AB1212">MD2011-24-04</font><br>
+				Сим-карта "Киевстар": <font color="#1F139F">есть x2(1 в модеме + 1 в коробке)</font> s/n: <font color="#AB1212">n/a</font>
+				</p>
+		    </div>
+          </li>     
+        </ul>
+        </div>
+      
+    </div>
+            </div>
+          </li>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block">Р</h2>
+            <div class="msg">
+            <div class="container">
+    <div class="accordion">
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block"><span>Романюк [067 634 30 13] [Мотузок-Гончаров]  [dd.mm.2017]</span></h2>
+            <div class="msg">
+                <p>
+				Моб. телефон: <font color="#1F139F">Lenovo A536 black</font> s/n: <font color="#AB1212">O1501-008</font><br>
+				Чехол для моб. телефона: <font color="#1F139F">Nillkin for Lenovo A536</font> s/n: <font color="#AB1212">n/a</font><br>
+				Зарядное(авто): <font color="#1F139F">НЕ ПРЕДОСТАВИЛИ	--!!!!</font> s/n: <font color="#AB1212">n/a</font><br>
+				Держатель(авто): <font color="#1F139F">НЕ ПРЕДОСТАВИЛИ	--!!!!</font> s/n: <font color="#AB1212">n/a</font><br>
+				Сим-карта "Киевстар": <font color="#1F139F">????</font> s/n: <font color="#AB1212">n/a</font>
+				</p>
+		    </div>
+          </li>     
+        </ul>
+        </div>
+      
+    </div>    
+			</div>
+          </li>
+           <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block">С</h2>
+            <div class="msg">
+    <div class="container">
+    <div class="accordion">
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block"><span>Сытник Олег [067 551 55 62]  [dd.mm.2017]</span></h2>
+            <div class="msg">
+                <p>
+				Моб. телефон: <font color="#1F139F">Sasmsung E1202</font> s/n: <font color="#AB1212">O1307-26</font><br>
+				Сист.блок: <font color="#1F139F">есть</font> s/n: <font color="#AB1212">S2004-06K</font><br>
+				Монитор: <font color="#1F139F">BENQ FP73G</font> s/n: <font color="#AB1212">n/a</font><br>
+				Клавиатура: <font color="#1F139F">Gembird KB-U-101-UA</font> s/n: <font color="#AB1212">n/a</font><br>
+				Манипулятор: <font color="#1F139F">Genius GM-150032</font> s/n: <font color="#AB1212">n/a</font><br>
+				Сим-карта "Киевстар": <font color="#1F139F">есть</font> s/n: <font color="#AB1212">n/a</font>
+				</p>
+		    </div>
+          </li>     
+        </ul>
+        </div>
+      
+    </div> 
+            </div>
+          </li>
+           <li>
+            <input type="checkbox" checked>
+            <i></i>
+			<h2 class="title_block">Ш</h2>
+            <div class="msg">
+    <div class="container">
+    <div class="accordion">
+        <ul>
+          <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block"><span>Шумилин [--na--]  [03.03.2017]</span></h2>
+            <div class="msg">
+                <p>
+				Модем 3G-USB: <font color="#1F139F">3G-USB-E153</font> s/n: <font color="#AB1212">O1110-09н</font>
+				</p>
+		    </div>
+          </li>     
+        </ul>
+        </div>
+      
+    </div> 
+            </div>
+          </li>
+           <li>
+            <input type="checkbox" checked>
+            <i></i>
+            <h2 class="title_block">Встроенное видео</h2>
+            <div class="msg">
+                <div class="video-responsive">
+            <iframe width="1280" height="720" src="http://www.youtube.com/embed/mRrE8CFkkAg" frameborder="0" allowfullscreen></iframe>
+        </div>
+                <p>В аккордеоне вы можете использовать встроенное видео с популярных видео хостингов использующих <strong>iframe, object, embed</strong>. Видео полностью отзывчвы и идеально впишутся в любые размеры блоков аккордеона.</p> 
+            </div>
+          </li>
+        </ul>
+        </div>
+      
+    </div>
+	<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////!-->
+			</section>
+            <section id="content-tab3">
+                <p><a href="http://acerfans.ru/forum/topic_1855">BlueScreen</a></p>
+            </section>
+            <section id="content-tab4">
+                <p> Спецификация CSS3 — это неоспоримое будущее в области декоративного оформления веб-страниц, и ее разработка еще далека от завершения. Большинство модулей все еще продолжает совершенствоваться и модифицироваться, и ни один браузер не поддерживает все модули. Это означает, что CSS3 испытывает такие же сложности, как и HTML5. Веб-разработчикам нужно решать, какие возможности использовать, а какие игнорировать, а также каким образом заполнить зияющие пробелы в браузерной поддержке. </p>
+                <p> CSS3 не является частью спецификации HTML5. Эти два стандарта были разработаны отдельно друг от друга, разными людьми, работающими в разное время в различных местах. Но даже организация W3C призывает веб-разработчиков использовать HTML5 и CSS3 вместе, как часть одной новой волны современного веб-дизайна. </p>
+            </section>
+        </div>
+        <!-- <div class="info"> сделано с любовью: <a href="http://twitter.com/dobrovoi"><i class="fa fa-heart"></i> dobrovoi</a> </div> -->
+    </div>
+</body>
